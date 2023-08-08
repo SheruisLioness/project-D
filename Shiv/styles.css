@@ -35,7 +35,8 @@
 
 /* Dropdown style */
 .dropdown {
-    position: relative;
+    margin-left: 1px;
+    position: relative; 
     
 }
 
@@ -46,7 +47,7 @@
     font-size: 20px;
     border: none;
     cursor: pointer;
-    padding: 12.5px 15px;
+    padding: 12.5px 10px;
     transition: background-color 0.3s;
 }
 
@@ -88,5 +89,11 @@
    
     vertical-align: middle;
     border-radius: 50%;
+}
+
+
+.menu-text {
+   
+    vertical-align: top;
 }
 
