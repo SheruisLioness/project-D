@@ -1,0 +1,104 @@
+/* Base styles for the navbar */
+body{
+    width: auto;}
+.navbar {
+    align-self: left;
+    width: 100%;
+    display: flex;
+    justify-content:left;
+    align-items: center;
+    background-color: #7bbdfe;
+    padding: 10px 10px;
+    left: 10%;
+}
+
+/* Logo style */
+.logo img {
+    vertical-align: middle;
+}
+
+/* Navigation options style */
+.nav-options {
+    display: flex;
+    align-items:left; /* Align options vertically */
+    /* margin-left: 20px; Add margin to move options towards the logo */
+}
+
+.nav-options a {
+    color: white;
+    font-size: 20px;
+    font-family:'Times New Roman', Times, serif;
+    text-decoration: none;
+    padding: 12.5px 25px;
+    border-radius: 30%;
+    transition: background-color 0.3s;
+}
+
+.nav-options a:hover {
+    color: #1E415C;
+}
+
+/* Dropdown style */
+.dropdown {
+    margin-left: 1px;
+    position: relative; 
+    
+}
+
+.dropbtn {
+    background-color: #7bbdfe;
+    color: white;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 20px;
+    border: none;
+    cursor: pointer;
+    padding: 12.5px 10px;
+    transition: background-color 0.3s;
+}
+
+.dropbtn:hover {
+    background-color: #3c84bc;
+}
+
+/* Dropdown content style */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #3c84bc;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.dropdown-content:hover{
+    color: #1E415C;
+}
+
+/* Profile icon style */
+/* .profile-icon img {
+ 
+    vertical-align:middle;
+    border-radius: 50%;
+} */
+/* Profile icon style */
+.profile-icon {
+    position: absolute;
+    top: 25px; /* Adjust the value as needed */
+    right: 25px; /* Adjust the value as needed */
+}
+
+.profile-icon img {
+   
+    vertical-align: middle;
+    border-radius: 50%;
+}
+
+
+.menu-text {
+   
+    vertical-align: top;
+}
+
