@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PDF Splitter</title>
+</head>
+<body>
+    <h1>PDF Splitter</h1>
+    <form method="POST" enctype="multipart/form-data" action="/">
+        <input type="file" name="file"><br>
+        Page Range: <input type="text" name="start_page"> - <input type="text" name="end_page"><br>
+        <input type="submit" value="Upload and Split">
+    </form>
+
+    {% if splitted_files %}
+    <h2>Download Splitted PDFs</h2>
+    <ul>
+        {% for filename in splitted_files %}
+            <li><a href="{{ url_for('download_output', filename=filename) }}">{{ filename }}</a></li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</body>
+</html>
