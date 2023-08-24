@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Email Form</title>
+</head>
+<body>
+    <h1>Email Form</h1>
+    <form method="POST" action="{{ url_for('send_email_page') }}">
+        <label for="receiver_email">Recipient Email:</label><br>
+        <input type="email" id="receiver_email" name="receiver_email" required><br><br>
+        
+        <label for="subject">Subject:</label><br>
+        <input type="text" id="subject" name="subject" required><br><br>
+        
+        <label for="message">Message:</label><br>
+        <textarea id="message" name="message" rows="4" required></textarea><br><br>
+        
+        <label for="file">Attach Converted PDF:</label><br>
+        <input type="file" id="file" name="file" accept=".pdf" required><br><br>
+        
+        <button type="submit">Send Email</button>
+    </form>
+</body>
+</html>
