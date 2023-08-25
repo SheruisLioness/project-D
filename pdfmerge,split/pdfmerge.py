@@ -3,6 +3,7 @@ import PyPDF2
 import tempfile
 import os
 import shutil
+import datetime  # Import the datetime module
 
 app = Flask(__name__)
 
@@ -29,13 +30,17 @@ def merge_pdfs():
         for pdf_path in pdf_paths:
             merged_pdf.append(pdf_path)
 
-        # Save the merged PDF to a temporary file
-        output_pdf_path = os.path.join(temp_dir, "merged.pdf")
+        # Generate a unique filename using current date and time
+        current_datetime = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        output_pdf_filename = f"{current_datetime}.pdf"
+        output_pdf_path = os.path.join(temp_dir, output_pdf_filename)
+
+        # Save the merged PDF to the generated filename
         with open(output_pdf_path, "wb") as output_pdf:
             merged_pdf.write(output_pdf)
 
         # Send the merged PDF as a response for download
-        return send_file(output_pdf_path, as_attachment=True, download_name="merged.pdf")
+        return send_file(output_pdf_path, as_attachment=True, download_name=output_pdf_filename)
 
     finally:
         # Clean up: Use shutil.rmtree to ensure complete directory removal
