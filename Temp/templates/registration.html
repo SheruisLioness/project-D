@@ -1,0 +1,48 @@
+<html>
+<head>
+    <title>Registration Page</title>
+</head>
+<body style="font-family: Arial, sans-serif; background-color: #f0f0f0; text-align: center;">
+
+    <h1 style="color: #333;font-family: 'Times New Roman';">Register Yourself</h1>
+
+    <form style="max-width: 600px; margin: 0 auto; background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);">
+        <label for="username">Username:</label>
+        <input type="text" name="username" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px;">
+
+        <label for="email">Email:</label>
+        <input type="email" name="email" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px;">
+
+        <label for="password">Password:</label>
+        <input type="password" name="password" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px;">
+
+        <label for="dob">Date of Birth:</label>
+        <input type="date" name="dob" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px;">
+
+        <label for="gender">Gender:</label>
+        <select name="gender" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px;">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+        </select>
+
+        <label for="avatar">Profile Picture:</label>
+        <input type="file" name="profile" accept=".png" alt="Profile Picture" style="margin-bottom: 10px;"><br>
+
+        <label>Country:</label>
+        <input type="radio" name="country" value="India"> India
+        <input type="radio" name="country" value="USA"> USA
+        <input type="radio" name="country" value="Canada"> Canada
+        <input type="radio" name="country" value="UK"> UK
+        <input type="radio" name="country" value="Australia"> Australia<br>
+
+        <label for="interests">Interests:</label>
+        <input type="checkbox" name="interest" value="Sports"> Sports
+        <input type="checkbox" name="interest" value="Music"> Music
+        <input type="checkbox" name="interest" value="Art"> Art
+        <input type="checkbox" name="interest" value="Travel"> Travel<br>
+
+        <button type="submit" style="background-color: #007bff; color: #fff; border: none; border-radius: 10px; padding: 10px 20px;" >Submit</button>
+    </form>
+
+</body>
+</html>
