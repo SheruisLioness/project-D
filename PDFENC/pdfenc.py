@@ -3,6 +3,7 @@ from flask_wtf import FlaskForm
 from wtforms import FileField, PasswordField
 import PyPDF2
 import os
+import datetime  # Import the datetime module
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Set a secret key for the session
@@ -31,12 +32,15 @@ def encrypt():
 
         pdf_writer.encrypt(password)
 
-        encrypted_filename = "encrypted_output.pdf"
+        # Generate a unique filename using current date and time
+        current_datetime = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        encrypted_filename = f"{current_datetime}.pdf"
         encrypted_path = os.path.join(app.config['UPLOAD_FOLDER'], encrypted_filename)
+        
         with open(encrypted_path, "wb") as output_pdf:
             pdf_writer.write(output_pdf)
 
-        return send_file(encrypted_path, as_attachment=True)
+        return send_file(encrypted_path, as_attachment=True, download_name=encrypted_filename)
 
     return render_template("pdfenc.html", form=form, encrypted_filename=encrypted_filename)
 

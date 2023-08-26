@@ -2,6 +2,7 @@ import os
 from PyPDF2 import PdfReader, PdfWriter
 from flask import Flask, request, render_template, send_from_directory, make_response
 from io import BytesIO
+import datetime  # Import the datetime module
 
 app = Flask(__name__)
 
@@ -27,7 +28,9 @@ def split_and_merge_pdf(input_pdf, start_page, end_page, original_filename):
         if start_page <= page_num <= end_page:
             output_pdf.add_page(page)
 
-    output_filename = os.path.join(output_folder, f'split_{original_filename}_pages_{start_page}_to_{end_page}.pdf')
+    # Generate a unique output filename using current date and time
+    current_datetime = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    output_filename = os.path.join(output_folder, f'pages_{start_page}_to_{end_page}_{current_datetime}.pdf')
     with open(output_filename, 'wb') as output_file:
         output_pdf.write(output_file)
 
