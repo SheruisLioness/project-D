@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Excel to DOCX to PDF Converter</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Excel to DOCX to PDF Converter</h1>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flash-messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".xlsx">
+        <input type="email" name="receiver_email" placeholder="Receiver Email">
+        <button type="submit">Convert and Send</button>
+    </form>
+</body>
+</html>

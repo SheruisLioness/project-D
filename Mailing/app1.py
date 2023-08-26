@@ -49,7 +49,7 @@ def send_email(sender_email, receiver_email, subject, message, pdf_path, smtp_se
     except Exception as e:
         print(f"Email sending error: {e}")
         return False
-
+@app.route('/')
 @app.route('/doctopdf', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
