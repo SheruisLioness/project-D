@@ -26,7 +26,7 @@ def convert_and_download(docx_path, pdf_path):
 def index():
     if request.method == 'POST':
         threads = []
-
+0
         for file in request.files.getlist('file'):  # Handle multiple files
             if file and allowed_file(file.filename):
                 try:
