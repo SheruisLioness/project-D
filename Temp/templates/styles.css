@@ -1,0 +1,102 @@
+/* Reset some default styles for consistency */
+body, ul {
+    margin: 0;
+    padding: 0;
+}
+
+/* Style for the navbar */
+.navbar {
+    background-color: #80acff;
+    color: rgb(0, 0, 0);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.navbar-logo img {
+    height: 45px;
+    margin-right: 10px;
+}
+
+.navbar-logo {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+}
+
+.menu-toggle {
+    background-color: transparent;
+    border: none;
+    color: #000000;
+    font-weight: bold;
+    cursor: pointer;
+    margin-right: 10px; /* Add margin to the right */
+    display: none; /* Hide the button by default */
+}
+
+#menu-checkbox {
+    display: none;
+}
+
+#menu-toggle:hover + .navbar-links .s {
+    display: flex;
+    flex-direction: column;
+    background-color: #80acff8b;
+    border: 1px solid #ddd;
+    width: 150px;
+    padding: 10px;
+    position: absolute;
+    top: 55px;
+    right: 0;
+}
+
+.navbar-links ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-links li {
+    margin-right: 15px;
+}
+
+.navbar-links a {
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.navbar-links a:hover {
+    color: #e74c3c;
+}
+
+.navbar-links img {
+    height: 30px;
+    margin-left: 20px;
+    border-radius: 50%;
+    border: 2px solid rgb(0, 0, 0);
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .navbar-links {
+        display: block;
+    }
+
+    .menu-toggle {
+        display: block;
+        margin-right: 20px;
+    }
+
+    .navbar-links .s {
+        display: none;
+    }
+}
+
+/* Hide the menu button in large screens */
+@media (min-width: 769px) {
+    .menu-toggle {
+        display: none;
+    }
+}
