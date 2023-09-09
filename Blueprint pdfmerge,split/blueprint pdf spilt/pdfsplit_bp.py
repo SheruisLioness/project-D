@@ -1,24 +1,29 @@
+# pdfsplit_bp.py
+
 import os
 from PyPDF2 import PdfReader, PdfWriter
-from flask import Flask, request, render_template, send_from_directory, make_response
+from flask import Blueprint, request, render_template, send_from_directory
 from io import BytesIO
-import datetime  # Import the datetime module
+import datetime
 
-app = Flask(__name__)
+pdfsplit_bp = Blueprint("pdfsplit", __name__)
 
 # Path to the upload and output folders, and allowed file extensions
 UPLOAD_FOLDER = 'uploads'
 OUTPUT_FOLDER = 'output'
 ALLOWED_EXTENSIONS = {'pdf'}
 
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['OUTPUT_FOLDER'] = OUTPUT_FOLDER
+pdfsplit_bp.config = {
+    'UPLOAD_FOLDER': UPLOAD_FOLDER,
+    'OUTPUT_FOLDER': OUTPUT_FOLDER,
+    'ALLOWED_EXTENSIONS': ALLOWED_EXTENSIONS
+}
 
 def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in pdfsplit_bp.config['ALLOWED_EXTENSIONS']
 
 def split_and_merge_pdf(input_pdf, start_page, end_page, original_filename):
-    output_folder = app.config['OUTPUT_FOLDER']
+    output_folder = pdfsplit_bp.config['OUTPUT_FOLDER']
     os.makedirs(output_folder, exist_ok=True)
     
     pdf = PdfReader(input_pdf)
@@ -36,8 +41,8 @@ def split_and_merge_pdf(input_pdf, start_page, end_page, original_filename):
 
     return output_filename
 
-@app.route('/', methods=['GET', 'POST'])
-def upload_file():
+@pdfsplit_bp.route('/pdfsplit', methods=['GET', 'POST'])
+def split_pdf():
     splitted_files = []  # List to hold the splitted PDF filenames
 
     if request.method == 'POST':
@@ -53,7 +58,7 @@ def upload_file():
         
         if file and allowed_file(file.filename):
             # Save uploaded file
-            filename = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+            filename = os.path.join(pdfsplit_bp.config['UPLOAD_FOLDER'], file.filename)
             file.save(filename)
             
             # Split and merge the PDF
@@ -63,9 +68,6 @@ def upload_file():
             
     return render_template('pdfsplit.html', splitted_files=splitted_files)
 
-@app.route('/output/<filename>')
+@pdfsplit_bp.route('/output/<filename>')
 def download_output(filename):
-    return send_from_directory(app.config['OUTPUT_FOLDER'], filename, as_attachment=True)
-
-if __name__ == '__main__':
-    app.run(debug=True)
+    return send_from_directory(pdfsplit_bp.config['OUTPUT_FOLDER'], filename, as_attachment=True, mimetype='application/pdf', attachment_filename=filename,)

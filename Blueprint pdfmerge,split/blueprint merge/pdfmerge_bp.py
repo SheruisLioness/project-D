@@ -1,17 +1,18 @@
-from flask import Flask, render_template, request, send_file
+from flask import Blueprint, render_template, request, send_file
 import PyPDF2
 import tempfile
 import os
 import shutil
-import datetime  # Import the datetime module
+import datetime
 
-app = Flask(__name__)
+# Create a Blueprint for the PDF merging functionality
+pdf_merge_bp = Blueprint('pdf_merge_bp', __name__)
 
-@app.route("/")
+@pdf_merge_bp.route("/")
 def index():
     return render_template("pdfmerge.html")
 
-@app.route("/merge", methods=["POST"])
+@pdf_merge_bp.route("/merge", methods=["POST"])
 def merge_pdfs():
     pdf_files = request.files.getlist("pdfs")
 
@@ -45,6 +46,3 @@ def merge_pdfs():
     finally:
         # Clean up: Use shutil.rmtree to ensure complete directory removal
         shutil.rmtree(temp_dir, ignore_errors=True)
-
-if __name__ == "__main__":
-    app.run(debug=True)

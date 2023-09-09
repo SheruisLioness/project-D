@@ -1,19 +1,17 @@
-from flask import Flask, render_template, request, send_file
+from flask import Blueprint, render_template, request, send_file
 from flask_wtf import FlaskForm
 from wtforms import FileField, PasswordField
 import PyPDF2
 import os
-import datetime  # Import the datetime module
+import datetime
 
-app = Flask(__name__)
-app.secret_key = 'your_secret_key'  # Set a secret key for the session
-app.config['UPLOAD_FOLDER'] = 'uploads'
+encryption_bp = Blueprint("encryption", __name__, template_folder="templates")
 
 class EncryptForm(FlaskForm):
     file = FileField("File")
     password = PasswordField("Password")
 
-@app.route("/", methods=["GET", "POST"])  # Allow both GET and POST methods
+@encryption_bp.route("/encrypt", methods=["GET", "POST"])
 def encrypt():
     form = EncryptForm()
     encrypted_filename = None
@@ -32,17 +30,13 @@ def encrypt():
 
         pdf_writer.encrypt(password)
 
-        # Generate a unique filename using current date and time
         current_datetime = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         encrypted_filename = f"{current_datetime}.pdf"
-        encrypted_path = os.path.join(app.config['UPLOAD_FOLDER'], encrypted_filename)
-        
+        encrypted_path = os.path.join("uploads", encrypted_filename)
+
         with open(encrypted_path, "wb") as output_pdf:
             pdf_writer.write(output_pdf)
 
         return send_file(encrypted_path, as_attachment=True, download_name=encrypted_filename)
 
-    return render_template("pdfenc.html", form=form, encrypted_filename=encrypted_filename)
-
-if __name__ == "__main__":
-    app.run(host="localhost", port=4444)
+    return render_template("encryption_app.html", form=form, encrypted_filename=encrypted_filename)
