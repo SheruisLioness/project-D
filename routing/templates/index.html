@@ -7,23 +7,23 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f5f5f5;
+            /* background-image: linear-gradient(to bottom, #0073e6, #87ceeb); Gradient from dark blue to sky blue */
         }
 
         header {
-            background-color: #333;
+            background-image: linear-gradient(to bottom, #0073e6, #0052a3); /* Gradient for header */
             color: #fff;
-            padding: 10px 0;
+            padding: 20px 0;
             text-align: center;
         }
 
         header h1 {
             margin: 0;
-            font-size: 24px;
+            font-size: 36px;
         }
 
         nav {
-            background-color: #444;
+            background-color:#0052a3;
             color: #fff;
         }
 
@@ -31,6 +31,7 @@
             list-style-type: none;
             padding: 0;
             margin: 0;
+            text-align: center;
         }
 
         nav li {
@@ -49,16 +50,18 @@
         }
 
         .container {
-            max-width: 660px;
+            max-width: 800px;
             margin: 20px auto;
             padding: 20px;
-            background-color: #717171;
+            background-image: linear-gradient(to bottom, #0073e6, #0052a3); /* Gradient for container */
             border-radius: 10px;
+            color: #fff; /* Text color for container */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
         }
 
         ul {
-            text-align: center;
-          
+            text-align: left;
+            font-size: 18px;
         }
 
         ul li {
@@ -68,9 +71,10 @@
 </head>
 <body>
     <header>
-        <h1><img src="LOGO1.png" height="40"> Dconverter</h1>
+        <h1><img src="static/LOGO1.png" height="35"> converter</h1>
     </header>
     
+    <nav>
         <ul>
             <li><a href="{{ url_for('pdftodocx.pdftodocx_index') }}">PDF to DOCX</a></li>
             <li><a href="{{ url_for('doctopdf.doctopdf_index') }}">DOCX to PDF</a></li>
@@ -82,15 +86,8 @@
             <li><a href="{{ url_for('ppttoimages.ppttoimgindex') }}">Convert PPTX to Images</a></li>
             <!-- Add more navigation links if needed -->
         </ul>
-        
-    <div class="container">
-       <p>D-Converter is a versatile tool that enables students to convert their files from commonly used file formats
-         into their desired formats. In addition to conversion, it offers handy features like file size compression and
-          file splitting for efficient file management. This cloud-based application simplifies the process, allowing 
-          students to easily modify and adapt their documents to suit their academic needs. Its user-friendly interface 
-          ensures seamless navigation and editing of files .
-        D-Converter integrates seamlessly with cloud servers, ensuring secure and efficient file management. Students 
-        can work on their documents with confidence, and the direct email sending feature eliminates the need for intermediate storage, making file sharing quick and hassle-free. With its flexibility and comprehensive set of features, D-Converter proves to be a valuable tool for students seeking efficient solutions for handling file formats commonly used in academic settings. Whether it's converting presentations, research papers, or optimizing document size, D-Converter empowers students to manage their files securely and efficiently throughout their academic pursuits.</p>
-    </div>
+    </nav>
+
+   
 </body>
 </html>

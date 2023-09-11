@@ -4,7 +4,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.application import MIMEApplication
 
-ddef send_email(sender_email, receiver_email, subject, message, pdf_path, smtp_server, smtp_port, username, password):
+def send_email(sender_email, receiver_email, subject, message, pdf_path, smtp_server, smtp_port, username, password):
     try:
         msg = MIMEMultipart()
         msg['From'] = sender_email
