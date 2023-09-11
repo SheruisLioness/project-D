@@ -1,0 +1,16 @@
+<!-- templates/menu.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dynamic Menu</title>
+</head>
+<body>
+    <h1>Dynamic Menu</h1>
+    <ul>
+        {% for route in routes %}
+            <li><a href="{{ url_for(route.url) }}">{{ route.name }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

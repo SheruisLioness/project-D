@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -22,5 +22,22 @@
         <button type="submit">Convert to Docx</button>
     </form>
     <a href="pdftodocx.html"><button>PDF to DOCX</button></a>
+</body>
+</html> -->
+<!-- templates/doctopdf.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Document to PDF Conversion</title>
+</head>
+<body>
+    <h1>Document to PDF Conversion</h1>
+    <form action="{{ url_for('conversion.index') }}" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".docx" multiple>
+        <button type="submit">Convert and Download</button>
+    </form>
+    <hr>
+    <a href="{{ url_for('conversion.menu') }}">Back to Menu</a>
 </body>
 </html>

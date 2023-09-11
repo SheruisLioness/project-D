@@ -37,6 +37,10 @@ def encrypt():
         with open(encrypted_path, "wb") as output_pdf:
             pdf_writer.write(output_pdf)
 
-        return send_file(encrypted_path, as_attachment=True, download_name=encrypted_filename)
+        # Check if the file exists before sending it
+        if os.path.exists(encrypted_path):
+            return send_file(encrypted_path, as_attachment=True, download_name=encrypted_filename)
+        else:
+            return "File not found."
 
     return render_template("encryption_app.html", form=form, encrypted_filename=encrypted_filename)
