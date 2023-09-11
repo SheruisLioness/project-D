@@ -4,6 +4,7 @@ from pdf2image import convert_from_bytes
 from pptx import Presentation
 from pptx.util import Inches
 import tempfile
+import datetime  # Import the datetime module
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'
@@ -15,6 +16,10 @@ def pdf_to_images(pdf_bytes):
 def create_pptx(images):
     prs = Presentation()
     
+    # Get the slide dimensions
+    slide_width = prs.slide_width
+    slide_height = prs.slide_height
+    
     temp_dir = tempfile.mkdtemp()  # Create a temporary directory
 
     for i, image in enumerate(images):
@@ -22,11 +27,14 @@ def create_pptx(images):
         image.save(image_path, 'PNG')  # Save the image as a temporary file
         
         slide = prs.slides.add_slide(prs.slide_layouts[5])
-        left = Inches(1)
-        top = Inches(1)
-        pic = slide.shapes.add_picture(image_path, left, top, width=Inches(8.5), height=Inches(6))
+        left = 0  # Set the left position to 0 inches
+        top = 0   # Set the top position to 0 inches
+        pic = slide.shapes.add_picture(image_path, left, top, width=slide_width, height=slide_height)
 
-    pptx_path = os.path.join(app.config['UPLOAD_FOLDER'], 'output.pptx')
+    # Generate the filename using the current date and time
+    current_datetime = datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+    pptx_filename = f'output_{current_datetime}.pptx'
+    pptx_path = os.path.join(app.config['UPLOAD_FOLDER'], pptx_filename)
     prs.save(pptx_path)
 
     # Clean up temporary directory
@@ -52,7 +60,7 @@ def index():
             pdf_bytes = pdf_file.read()
             images = pdf_to_images(pdf_bytes)
             pptx_path = create_pptx(images)
-            return send_file(pptx_path, as_attachment=True)
+            return send_file(pptx_path, as_attachment=True, download_name=os.path.basename(pptx_path))
     
     return render_template('pdftoppt.html', error=None)
 

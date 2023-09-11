@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>File Conversion App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        nav {
+            background-color: #444;
+            color: #fff;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 660px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #717171;
+            border-radius: 10px;
+        }
+
+        ul {
+            text-align: center;
+          
+        }
+
+        ul li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><img src="LOGO1.png" height="40"> Dconverter</h1>
+    </header>
+    
+        <ul>
+            <li><a href="{{ url_for('pdftodocx.pdftodocx_index') }}">PDF to DOCX</a></li>
+            <li><a href="{{ url_for('doctopdf.doctopdf_index') }}">DOCX to PDF</a></li>
+            <li><a href="{{ url_for('doctoimg.doctoimg_index') }}">DOCX to Images</a></li>
+            <li><a href="{{ url_for('docxtopptx.docxtopptx_index') }}">DOCX to PPTX</a></li>
+            <li><a href="{{ url_for('pdftoimg.pdftoimgindex') }}">Convert PDF to Images</a></li>
+            <li><a href="{{ url_for('pdftoppt.pdfpptindex') }}">Convert PDF to PPTX</a></li>
+            <li><a href="{{ url_for('ppttopdf.ppttopdfindex') }}">Convert PPTX to PDF</a></li>
+            <li><a href="{{ url_for('ppttoimages.ppttoimgindex') }}">Convert PPTX to Images</a></li>
+            <!-- Add more navigation links if needed -->
+        </ul>
+        
+    <div class="container">
+       <p>D-Converter is a versatile tool that enables students to convert their files from commonly used file formats
+         into their desired formats. In addition to conversion, it offers handy features like file size compression and
+          file splitting for efficient file management. This cloud-based application simplifies the process, allowing 
+          students to easily modify and adapt their documents to suit their academic needs. Its user-friendly interface 
+          ensures seamless navigation and editing of files .
+        D-Converter integrates seamlessly with cloud servers, ensuring secure and efficient file management. Students 
+        can work on their documents with confidence, and the direct email sending feature eliminates the need for intermediate storage, making file sharing quick and hassle-free. With its flexibility and comprehensive set of features, D-Converter proves to be a valuable tool for students seeking efficient solutions for handling file formats commonly used in academic settings. Whether it's converting presentations, research papers, or optimizing document size, D-Converter empowers students to manage their files securely and efficiently throughout their academic pursuits.</p>
+    </div>
+</body>
+</html>

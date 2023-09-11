@@ -5,7 +5,7 @@
 </head>
 <body>
     <h1>Email Form</h1>
-    <form method="POST" action="{{ url_for('send_email_page') }}">
+    <form method="POST" action="{{ url_for('send_email_page') }}" enctype="multipart/form-data">
         <label for="receiver_email">Recipient Email:</label><br>
         <input type="email" id="receiver_email" name="receiver_email" required><br><br>
         
