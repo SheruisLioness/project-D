@@ -9,7 +9,7 @@ doctopdf_blueprint = Blueprint('doctopdf', __name__)
 UPLOAD_FOLDER = 'uploads'
 ALLOWED_EXTENSIONS = {'docx'}
 
-doctopdf_blueprint.config = {}  # Create a configuration dictionary for the blueprint
+doctopdf_blueprint.config = {}  
 doctopdf_blueprint.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 def allowed_file(filename):
@@ -26,7 +26,7 @@ def doctopdf_index():
     if request.method == 'POST':
         threads = []
 
-        for file in request.files.getlist('file'):  # Handle multiple files
+        for file in request.files.getlist('file'):  
             if file and allowed_file(file.filename):
                 try:
                     filename = secure_filename(file.filename)
