@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Image to PDF Converter</title>
+</head>
+<body>
+    <h1>Convert Images to PDF</h1>
+    
+    <form method="POST" enctype="multipart/form-data" action="{{ url_for('imgtopdf.convert') }}">
+        <label for="file">Select one or more image files (PNG, JPG, JPEG, GIF):</label>
+        <input type="file" id="file" name="file" accept=".png, .jpg, .jpeg, .gif" multiple>
+        <input type="submit" value="Convert to PDF">
+    </form>
+    
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li style="color: red;">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+</body>
+</html>

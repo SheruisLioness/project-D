@@ -32,6 +32,7 @@ def doctopdf_index():
                     filename = secure_filename(file.filename)
                     docx_path = os.path.join(doctopdf_blueprint.config['UPLOAD_FOLDER'], filename)
                     pdf_filename = filename.rsplit('.', 1)[0] + '.pdf'
+                    2
                     pdf_path = os.path.join(doctopdf_blueprint.config['UPLOAD_FOLDER'], pdf_filename)
                     
                     file.save(docx_path)
