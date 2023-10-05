@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Camera Image to DOCX/PDF</title>
+</head>
+<body>
+    <video id="camera-preview" autoplay></video>
+    <button id="capture-button">Capture Image</button>
+    <canvas id="captured-image" style="display:none;"></canvas>
+    <button id="convert-to-docx">Convert to DOCX</button>
+    <button id="convert-to-pdf">Convert to PDF</button>
+
+    <script>
+        const videoElement = document.getElementById('camera-preview');
+        const captureButton = document.getElementById('capture-button');
+        const canvas = document.getElementById('captured-image');
+        const context = canvas.getContext('2d');
+        const docxButton = document.getElementById('convert-to-docx');
+        const pdfButton = document.getElementById('convert-to-pdf');
+
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function (stream) {
+                videoElement.srcObject = stream;
+            })
+            .catch(function (error) {
+                console.error('Error accessing camera: ', error);
+            });
+
+        captureButton.addEventListener('click', function () {
+            context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+            canvas.toBlob(function (blob) {
+                // You can send this blob to the server for further processing
+                // Example: sendBlobToServer(blob);
+            }, 'image/jpeg');
+        });
+
+        docxButton.addEventListener('click', function () {
+            // Convert the captured image to DOCX (server-side)
+            // Example: sendImageToServerAndConvertToDocx();
+        });
+
+        pdfButton.addEventListener('click', function () {
+            // Convert the captured image to PDF (server-side)
+            // Example: sendImageToServerAndConvertToPdf();
+        });
+    </script>
+</body>
+</html>
