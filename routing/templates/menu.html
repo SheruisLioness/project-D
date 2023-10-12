@@ -4,6 +4,8 @@
     <title>File Conversion App</title>
 </head>
 <body>
+    {% include 'navbar.html' %}
+
     <h1>Welcome to the File Conversion App</h1>
     <ul>
         <li><a href="{{ url_for('pdftodocx.pdftodocx_index') }}">PDF to DOCX</a></li>

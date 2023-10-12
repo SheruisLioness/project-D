@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+    {% include 'navbar.html' %}
     <h1>Spreadsheet to PDF Converter</h1>
     {% if error %}
         <p class="error">{{ error }}</p>

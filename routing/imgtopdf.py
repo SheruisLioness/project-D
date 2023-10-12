@@ -33,9 +33,6 @@ def images_to_pdf(image_files, pdf_filename):
         print(f"PDF creation error: {str(e)}")
         return None
 
-# @imgtopdf_bp.route('/')
-# def index():
-#     return render_template('imgtopdf.html')
 
 @imgtopdf_bp.route('/convert', methods=['GET','POST'])
 def convert():

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image to PDF Converter</title>
+</head>
+<body>
+    <h1>Image to PDF Converter</h1>
+    <video id="camera" autoplay></video>
+    <button id="capture">Capture Image</button>
+    <canvas id="canvas" style="display: none;"></canvas>
+    <button id="convert" style="display: none;">Convert to PDF</button>
+    <form action="/convert" method="POST" style="display: none;" id="form">
+        <!-- Use "imageData[]" to receive multiple images -->
+        <input type="hidden" id="imageData" name="imageData[]">
+        <br>
+    </form>
+    <a href="#" id="downloadLink" style="display: none;">Download PDF</a>
+    <script>
+        const camera = document.getElementById('camera');
+        const captureButton = document.getElementById('capture');
+        const convertButton = document.getElementById('convert');
+        const form = document.getElementById('form');
+        const imageDataInput = document.getElementById('imageData');
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const videoConstraints = { facingMode: 'user' };
+        const downloadLink = document.getElementById('downloadLink');
+        const images = [];
+
+        navigator.mediaDevices.getUserMedia({ video: videoConstraints })
+            .then(function(stream) {
+                camera.srcObject = stream;
+            })
+            .catch(function(error) {
+                console.error('Camera access error:', error);
+            });
+
+        captureButton.addEventListener('click', function() {
+            canvas.width = camera.videoWidth;
+            canvas.height = camera.videoHeight;
+            ctx.drawImage(camera, 0, 0, canvas.width, canvas.height);
+            const imageData = canvas.toDataURL('image/jpeg');
+            imageDataInput.value = imageData;
+            images.push(imageData);
+            convertButton.style.display = 'block';
+        });
+
+        convertButton.addEventListener('click', function() {
+            form.submit();
+        });
+
+        function downloadPDF() {
+            fetch('/convert', { method: 'POST', body: new FormData(form) })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.blob();
+                })
+                .then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    downloadLink.href = url;
+                    downloadLink.style.display = 'block';
+                    downloadLink.download = 'output.pdf';
+                })
+                .catch(error => console.error('PDF download error:', error));
+        }
+    </script>
+</body>
+</html>
