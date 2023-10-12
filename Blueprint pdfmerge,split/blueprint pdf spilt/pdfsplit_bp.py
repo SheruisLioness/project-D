@@ -1,8 +1,7 @@
-# pdfsplit_bp.py
-
+# Import necessary modules
+from flask import Flask, Blueprint, request, render_template, send_from_directory, Response
 import os
 from PyPDF2 import PdfReader, PdfWriter
-from flask import Blueprint, request, render_template, send_from_directory
 from io import BytesIO
 import datetime
 
@@ -36,10 +35,21 @@ def split_and_merge_pdf(input_pdf, start_page, end_page, original_filename):
     # Generate a unique output filename using current date and time
     current_datetime = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     output_filename = os.path.join(output_folder, f'pages_{start_page}_to_{end_page}_{current_datetime}.pdf')
+    
     with open(output_filename, 'wb') as output_file:
         output_pdf.write(output_file)
 
-    return output_filename
+    # Create a BytesIO object to hold the PDF content
+    output_pdf_bytes = BytesIO()
+
+    # Write the PDF content to the BytesIO object
+    with open(output_filename, 'rb') as pdf_file:
+        output_pdf_bytes.write(pdf_file.read())
+
+    # Seek to the beginning of the BytesIO object
+    output_pdf_bytes.seek(0)
+
+    return output_pdf_bytes
 
 @pdfsplit_bp.route('/pdfsplit', methods=['GET', 'POST'])
 def split_pdf():
@@ -62,12 +72,16 @@ def split_pdf():
             file.save(filename)
             
             # Split and merge the PDF
-            merged_filename = split_and_merge_pdf(filename, start_page, end_page, file.filename)
-            
-            splitted_files.append(os.path.basename(merged_filename))
-            
+            output_pdf_bytes = split_and_merge_pdf(filename, start_page, end_page, file.filename)
+
+            # Set the appropriate response headers for PDF download
+            response = Response(output_pdf_bytes, content_type='application/pdf')
+            response.headers['Content-Disposition'] = f'attachment; filename={file.filename}'
+
+            return response
+
     return render_template('pdfsplit.html', splitted_files=splitted_files)
 
 @pdfsplit_bp.route('/output/<filename>')
 def download_output(filename):
-    return send_from_directory(pdfsplit_bp.config['OUTPUT_FOLDER'], filename, as_attachment=True, mimetype='application/pdf', attachment_filename=filename,)
+    return send_from_directory(pdfsplit_bp.config['OUTPUT_FOLDER'], filename, as_attachment=True, mimetype='application/pdf', attachment_filename=filename)
