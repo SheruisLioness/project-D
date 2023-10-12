@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OCR Converter</title>
+</head>
+<body>
+    <h1>OCR Converter</h1>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <form action="{{ url_for('ocr.upload') }}" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".pdf" required>
+        <button type="submit">Upload and OCR</button>
+    </form>
+
+    {% if download_link %}
+        <h2>Download OCR Result</h2>
+        <a href="{{ download_link }}">Download OCR Result</a>
+    {% endif %}
+</body>
+</html>
