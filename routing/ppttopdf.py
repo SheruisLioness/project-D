@@ -1,10 +1,10 @@
 import os
 from flask import Blueprint, render_template, request, send_file, flash
 from pptx import Presentation
-from io import BytesIO, StringIO
-from PIL import Image
+from io import BytesIO
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
+from PIL import Image
 
 ppttopdf_bp = Blueprint('ppttopdf', __name__)
 
@@ -40,21 +40,26 @@ def convert_pptx_to_pdf(pptx_bytes):
         # Create a PDF canvas
         pdf_canvas = canvas.Canvas(pdf_buffer, pagesize=letter)
 
-        for slide_number, slide in enumerate(prs.slides):
-            image = slide_to_image(slide)
+        for slide in prs.slides:
+            slide_width, slide_height = letter
+            image_stream = BytesIO()
 
-            # Save the image as a temporary file
-            temp_image_path = 'temp_image.png'
-            image.save(temp_image_path, 'PNG')
+            slide_image = Image.new("RGB", (int(slide_width), int(slide_height)), (255, 255, 255))
 
-            # Draw the temporary image file on the PDF canvas
-            pdf_canvas.drawImage(temp_image_path, 0, 0, width=letter[0], height=letter[1], preserveAspectRatio=True)
+            for shape in slide.shapes:
+                if shape.shape_type == 13:  # 13 represents an image
+                    image = shape.image
+                    image_bytes = image.blob
+                    image_stream.write(image_bytes)
+                    image_stream.seek(0)
 
-            if slide_number < len(prs.slides) - 1:
-                pdf_canvas.showPage()
+                    img = Image.open(image_stream)
+                    img.thumbnail((int(slide_width), int(slide_height)))  # corrected line
+                    pdf_canvas.drawInlineImage(img, 0, 0, width=letter[0], height=letter[1])
 
-            # Clean up the temporary image file
-            os.remove(temp_image_path)
+            slide_text = "\n".join([shape.text for shape in slide.shapes if hasattr(shape, "text")])
+            pdf_canvas.drawString(100, 100, slide_text)  # Adjust the position as needed
+            pdf_canvas.showPage()
 
         pdf_canvas.save()
         pdf_bytes = pdf_buffer.getvalue()
@@ -63,23 +68,3 @@ def convert_pptx_to_pdf(pptx_bytes):
         error_message = f"Conversion error: {str(e)}"
         print(error_message)
         return None, error_message
-
-def slide_to_image(slide):
-    slide_width = int(letter[0])
-    slide_height = int(letter[1])
-    image_stream = BytesIO()
-
-    slide_image = Image.new("RGB", (slide_width, slide_height), (255, 255, 255))
-
-    for shape in slide.shapes:
-        if hasattr(shape, "image"):
-            image = shape.image
-            image_bytes = image.blob
-            image_stream.write(image_bytes)
-            image_stream.seek(0)
-
-            img = Image.open(image_stream)
-            img.thumbnail((slide_width, slide_height))
-            slide_image.paste(img, (0, 0))
-
-    return slide_image
