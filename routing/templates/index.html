@@ -1,6 +1,105 @@
 {% include 'navbar.html' %}
 
+<style>
+        header h1 {
+            margin: 0;
+            font-size: 36px;
+        }
 
+        .container {
+            margin-top: 5%;
+        }
+
+        .boxes {
+            
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .box {
+            /* background-image: linear-gradient(to bottom, #0073e6, #0052a3); */
+            width: 15%;
+            
+            background-color:transparent; /* Low-opacity filled color */
+            padding: 10px;
+            padding-top: 3%;
+            padding-bottom: 3%;
+            text-align: center;
+            border: 1px dotted black;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.337);
+            border-radius:10px;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            margin-bottom: 10px;
+        }
+        a{
+            text-decoration: none;
+            color: #0052a3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><img src="static/LOGO1.png" height="35"> Converter</h1>
+    </header>
+    
+    <div class="container">
+        <div class="boxes">
+            <div class="box">
+                <ul>
+                    <li><a href="{{ url_for('pdftodocx.pdftodocx_index') }}">PDF to DOCX</a></li>
+                </ul>
+            </div>
+            <div class="box">
+                <ul>
+                    <li><a href="{{ url_for('doctopdf.doctopdf_index') }}">DOCX to PDF</a></li>
+                </ul>
+            </div>
+            <div class="box">
+                <ul>
+                    <li><a href="{{ url_for('doctoimg.doctoimg_index') }}">DOCX to Images</a></li>
+                </ul>
+            </div>
+            <div class="box">
+                <ul>
+                </ul>
+            </div>
+            <div class="box">
+                <ul>
+                    <li><a href="{{ url_for('pdftoimg.pdftoimgindex') }}">Convert PDF to Images</a></li>
+                </ul>
+            </div>
+            <div class="box">
+                <ul>
+                    
+                </ul>
+            </div>
+            <div class="box">
+                <ul>
+                    <li><a href="{{ url_for('ppttopdf.ppttopdfindex') }}">Convert PPTX to PDF</a></li>
+                </ul>
+            </div>
+            <div class="box">
+                <ul>
+                    <!-- <li><a href="{{ url_for('ppttoimages.ppttoimgindex') }}">Convert PPTX to Images</a></li> -->
+                </ul>
+            </div>
+            <div class="box">
+                <ul>
+                    <li><a href="{{ url_for('imgtopdf.convert') }}">Convert Images to PDF</a></li>
+                </ul>
+            </div>
+            <!-- Add more list items in separate boxes if needed -->
 <div class="container">
     <div class="boxes">
         <div class="box">
