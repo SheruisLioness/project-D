@@ -5,7 +5,7 @@ from doctoimg import doctoimg_blueprint
 #from docxtopptx import docxtopptx_blueprint
 from pdftoimg import pdf2img_bp
 # from pdftoppt import pdftoppt_bp
-# from ppttopdf import ppttopdf_bp
+from ppttopdf import ppttopdf_bp
 # from ppttoimg import ppttoimages_bp
 from imgtopdf import imgtopdf_bp
 
@@ -17,7 +17,7 @@ app.register_blueprint(doctoimg_blueprint)
 # app.register_blueprint(docxtopptx_blueprint)
 app.register_blueprint(pdf2img_bp)
 # app.register_blueprint(pdftoppt_bp) 
-# app.register_blueprint(ppttopdf_bp)
+app.register_blueprint(ppttopdf_bp)
 # app.register_blueprint(ppttoimages_bp)
 app.register_blueprint(imgtopdf_bp)
 
