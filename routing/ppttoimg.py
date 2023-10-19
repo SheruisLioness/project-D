@@ -24,40 +24,44 @@ def slide_to_image(slide):
     slide_image = Image.new("RGB", (slide_width, slide_height), (255, 255, 255))
 
     for shape in slide.shapes:
-        if hasattr(shape, "image"):
-            image = shape.image
-            with BytesIO(image.blob) as image_stream:
-                img = Image.open(image_stream)
-                img.thumbnail((slide_width, slide_height))
-                slide_image.paste(img, (0, 0))
+        if shape.shape_type == 13:  # Image shape
+            if shape.image:
+                with BytesIO(shape.image.blob) as image_stream:
+                    img = Image.open(image_stream)
+                    img = img.convert("RGB")
+                    img.thumbnail((slide_width, slide_height))
+                    slide_image.paste(img, (0, 0))
 
     return slide_image
 
 @ppttoimages_bp.route('/ppttoimg',  methods=['GET', 'POST'])
 def ppttoimgindex():
-    if 'pptx_file' not in request.files:
-        flash('No file part', 'error')
-        return render_template('ppttoimages.html')
+    if request.method == 'POST':
+        if 'pptx_file' not in request.files:
+            flash('No file part', 'error')
+            return render_template('ppttoimages.html')
 
-    pptx_file = request.files['pptx_file']
-    if pptx_file.filename == '':
-        flash('No selected file', 'error')
-        return render_template('ppttoimages.html')
+        pptx_file = request.files['pptx_file']
+        if pptx_file.filename == '':
+            flash('No selected file', 'error')
+            return render_template('ppttoimages.html')
 
-    pptx_bytes = pptx_file.read()
-    images = pptx_to_images(pptx_bytes)
-    
-    zip_bytes = create_zip(images)
-    
-    if zip_bytes:
-        return send_file(
-            BytesIO(zip_bytes),
-            as_attachment=True,
-            download_name='pptx_images.zip',
-            mimetype='application/zip'
-        )
+        pptx_bytes = pptx_file.read()
+        images = pptx_to_images(pptx_bytes)
+        
+        zip_bytes = create_zip(images)
+        
+        if zip_bytes:
+            return send_file(
+                BytesIO(zip_bytes),
+                as_attachment=True,
+                download_name='pptx_images.zip',
+                mimetype='application/zip'
+            )
+        else:
+            flash('Conversion failed', 'error')
+            return render_template('ppttoimages.html')
     else:
-        flash('Conversion failed', 'error')
         return render_template('ppttoimages.html')
 
 def create_zip(images):

@@ -33,11 +33,11 @@ def pdf_to_images(pdf_bytes):
 
 def create_pptx(images):
     prs = Presentation()
-    
+
     # Get the slide dimensions
     slide_width = prs.slide_width
     slide_height = prs.slide_height
-    
+
     temp_dir = tempfile.mkdtemp()  # Create a temporary directory
 
     for i, image in enumerate(images):
@@ -45,14 +45,27 @@ def create_pptx(images):
         image.save(image_path, 'PNG')  # Save the image as a temporary file
         
         slide = prs.slides.add_slide(prs.slide_layouts[5])
-        left = 0  # Set the left position to 0 inches
-        top = 0   # Set the top position to 0 inches
+
+        # Set the position and dimensions of the image to fill the entire slide
+        left = top = Inches(0)
         pic = slide.shapes.add_picture(image_path, left, top, width=slide_width, height=slide_height)
+
+        # Add a textbox for the slide number
+        txBox = slide.shapes.add_textbox(Inches(0.5), slide_height - Inches(1), slide_width - Inches(1), Inches(1))
+        tf = txBox.text_frame
+        p = tf.add_paragraph()
+        p.text = f"Slide {i+1}"
+        p.font.bold = True
 
     # Generate the filename using the current date and time
     current_datetime = datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
     pptx_filename = f'output_{current_datetime}.pptx'
-    pptx_path = os.path.join('app', 'uploads', pptx_filename)
+
+    # Ensure the 'uploads' directory exists
+    if not os.path.exists('uploads'):
+        os.makedirs('uploads')
+
+    pptx_path = os.path.join('uploads', pptx_filename)
     prs.save(pptx_path)
 
     # Clean up temporary directory

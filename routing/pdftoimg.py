@@ -5,7 +5,7 @@ from pdf2image import convert_from_bytes
 import tempfile
 
 app = Flask(__name__)
-# app.config['UPLOAD_FOLDER'] = 'uploads'
+app.config['UPLOAD_FOLDER'] = 'uploads'
 
 def pdf_to_images(pdf_bytes):
     images = convert_from_bytes(pdf_bytes)
