@@ -23,7 +23,7 @@ def send_email(sender_email, receiver_email, subject, message, pdf_path, smtp_se
         smtp.starttls()
         smtp.login(username, password)
         def send_email(sender_email, receiver_email, subject, message, pdf_path, smtp_server, smtp_port, username="Dconvertz@gmail.com", password="hsqbsglmyyxwwgzb"):
-        smtp.quit()
+         smtp.quit()
         return True
     except Exception as e:
         print(f"Email sending error: {e}")

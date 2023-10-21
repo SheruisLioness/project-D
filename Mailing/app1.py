@@ -7,6 +7,7 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.application import MIMEApplication
+import uuid
 
 app = Flask(__name__)
 
@@ -49,7 +50,8 @@ def send_email(sender_email, receiver_email, subject, message, pdf_path, smtp_se
     except Exception as e:
         print(f"Email sending error: {e}")
         return False
-@app.route('/')
+
+@app.route('/', methods=['GET', 'POST'])
 @app.route('/doctopdf', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
@@ -58,9 +60,10 @@ def index():
         for file in request.files.getlist('file'):
             if file and allowed_file(file.filename):
                 try:
+                    unique_filename = str(uuid.uuid4())
                     filename = secure_filename(file.filename)
                     docx_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-                    pdf_filename = filename.rsplit('.', 1)[0] + '.pdf'
+                    pdf_filename = unique_filename + '.pdf'
                     pdf_path = os.path.join(app.config['UPLOAD_FOLDER'], pdf_filename)
 
                     file.save(docx_path)
@@ -86,14 +89,18 @@ def index():
 
                 sender_email = "dconvertz@gmail.com"  # Replace with your sender email
                 username = "Dconvertz@gmail.com"
-                password = "hsqbsglmyyxwwgzb"  # Use the generated app password or your Gmail password
-        
+                password = "aicwueerhuresupz"  # Use the generated app password or your Gmail password
+
                 if send_email(sender_email, receiver_email, email_subject, email_message, pdf_path, smtp_server, smtp_port, username, password):
                     flash(f'Email sent to {receiver_email} with the converted PDF!', 'success')
                 else:
                     flash('Email could not be sent. Please try again later.', 'danger')
 
-                return send_file(pdf_path, as_attachment=True)
+                return f'''
+                        <!doctype html>
+                        <title>File Download</title>
+                        <h2>Click <a href="{pdf_path}" download>here</a> to download the converted PDF file.</h2>
+                       '''
 
     return render_template('doctopdf.html')
 

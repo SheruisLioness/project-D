@@ -6,8 +6,13 @@ import pymysql
 auth_bp = Blueprint('auth', __name__, template_folder='templates/auth')
 
 # Define the database connection
-
-cursor = db.cursor()
+db = pymysql.connect(
+    host='localhost',
+    user='root',
+    password='1234',
+    database='pro',
+    cursorclass=pymysql.cursors.DictCursor
+)
 
 @auth_bp.route('/signup', methods=['GET', 'POST'])
 def signup():
