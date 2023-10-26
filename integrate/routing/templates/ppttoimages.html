@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PPTX to Images Conversion</title>
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <h1>PPTX to Images Conversion</h1>
+    
+    <form method="POST" action="{{ url_for('ppttoimages.ppttoimgindex') }}" enctype="multipart/form-data">
+        <label for="pptx_file">Select a PPTX file:</label>
+        <input type="file" name="pptx_file" id="pptx_file" accept=".pptx">
+        <input type="submit" value="Convert">
+    </form>
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul>
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    
+    {% if url_for('ppttoimages.ppttoimgindex') %}
+        <a href="{{ url_for('ppttoimages.ppttoimgindex') }}" download>Download Converted Images (ZIP)</a>
+    {% endif %}
+</body>
+</html>
