@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PDF Encryption</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #81ecec; /* Background color for the entire page */
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            width: 50%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #00cec9; /* Container background color */
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin: 10px 0;
+        }
+
+        input[type="file"],
+        input[type="password"] {
+            width: 50%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        h2 {
+            margin-top: 20px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #333;
+            border: 1px solid #ccc;
+            padding: 10px;
+            display: inline-block;
+            margin-top: 10px;
+            border-radius: 4px;
+        }
+
+        a:hover {
+            background-color: #f5f5f5;
+        }
+    </style>
+</head>
+<body>
+    <h1>PDF Encryption</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <label for="file">Choose a PDF file to encrypt:</label>
+        {{ form.file() }}
+        <br>
+        <label for="password">Enter the encryption password:</label>
+        {{ form.password() }}
+        <br>
+        <button type="submit">Encrypt</button>
+    </form>
+    
+    {% if encrypted_filename %}
+        <h2>Download Encrypted PDF</h2>
+        <a href="{{ url_for('download_encrypted', filename=encrypted_filename) }}">Download Encrypted PDF</a>
+    {% endif %}
+</body>
+</html>
