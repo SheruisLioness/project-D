@@ -1,0 +1,65 @@
+{% include 'navbar.html' %}
+
+
+<div class="container">
+    <div class="boxes">
+        <div class="box">
+            <ul>
+                <li><a href="{{ url_for('pdftodocx.pdftodocx_index') }}">PDF to DOCX</a></li>
+            </ul>
+        </div>
+        <div class="box">
+            <ul>
+                <li><a href="{{ url_for('doctopdf.doctopdf_index') }}">DOCX to PDF</a></li>
+            </ul>
+        </div>
+        <div class="box">
+            <ul>
+                <li><a href="{{ url_for('doctoimg.doctoimg_index') }}">DOCX to Images</a></li>
+            </ul>
+        </div>
+        <div class="box">
+            <ul>
+                <li><a href="{{ url_for('docxtopptx.docxtopptx_index') }}">DOCX to PPTX</a></li>
+            </ul>
+        </div>
+        <div class="box">
+            <ul>
+                <li><a href="{{ url_for('pdftoimg.pdftoimgindex') }}">Convert PDF to Images</a></li>
+            </ul>
+        </div>
+        <div class="box">
+            <ul>
+                <li><a href="{{ url_for('pdftoppt.pdfpptindex') }}">Convert PDF to PPTX</a></li>
+            </ul>
+        </div>
+        <div class="box">
+            <ul>
+                <li><a href="{{ url_for('ppttopdf.ppttopdfindex') }}">Convert PPTX to PDF</a></li>
+            </ul>
+        </div>
+        <div class="box">
+            <ul>
+                <li><a href="{{ url_for('ppttoimages.ppttoimgindex') }}">Convert PPTX to Images</a></li>
+            </ul>
+        </div>
+        <div class="box">
+            <ul>
+                <li><a href="{{ url_for('imgtopdf.convert') }}">Convert Images to PDF</a></li>
+            </ul>
+        </div>
+
+        <div class="box">
+            <ul>
+                <li><a href="{{ url_for('exceltopdf.index') }}">SpreadSheet to PDF</a></li>
+            </ul>
+        </div>
+
+       <div class="box">
+            <ul>
+                <li><a href="{{ url_for('exceltodocx.index') }}">SpreadSheet to docx</a></li>
+            </ul>
+        </div>
+        <!-- Add more list items in separate boxes if needed -->
+    </div>
+</div>

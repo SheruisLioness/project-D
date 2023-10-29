@@ -11,6 +11,7 @@ db = pymysql.connect(
     user='root',
     password='1234',
     database='pro',
+    
     cursorclass=pymysql.cursors.DictCursor
 )
 
