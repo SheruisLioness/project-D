@@ -5,90 +5,141 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-image: url("static/bg.jpg");
-            /* background-size: 110% 185%;  */
-            
-        }
-
-        header {
-            
-            color: #fff;
-            padding: 20px 0;
-            text-align: center;
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 36px;
-        }
-
-        .container {
-            margin-top: 1%;
-        }
-
-        .boxes {
-            
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .box {
-            /* background-image: linear-gradient(to bottom, #0073e6, #0052a3); */
-            width: 15%;
-            background-color: #00acf026;
-            /* background-image: url("static/bg.jpg"); */
-            padding: 10px;
-            padding-top: 3%;
-            padding-bottom: 3%;
-            text-align: center;
-            /* border: 1px dotted black; */
-            /* box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.337); */
-            border-radius:10px;
-            color: #fff;
-            text-decoration: none;
-        }
-
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        ul li {
-            margin-bottom: 10px;
-        }
-        a{
-            text-decoration: none;
-            color: #0052a3;
-        }
-        h1{
-            color: white;
-        }
-        
-input[type="file"] {
-    background-color: transparent; 
-    color: #fff; 
-    padding: 5% 5% 5% 5%;
-    border: none; 
-    border-radius: 15px; 
-    cursor: pointer; 
-    border-style: dotted ;
-    border-color:  #707070;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: url("static/bg2.jpg") no-repeat;
+    background-position: center;
+    background-attachment: fixed;
 }
 
+header {
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+    width: 100%;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 36px;
+}
+
+.container {
+    margin-top: 1%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.boxes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+.box {
+    width: 15%;
+    background-color: rgba(0, 0, 0, 0.482);
+    padding: 10px;
+    padding-top: 3%;
+    padding-bottom: 3%;
+    text-align: center;
+    border-radius: 10px;
+    color: #fff;
+    text-decoration: none;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    margin-bottom: 10px;
+}
+
+a {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+h1 {
+    color: white;
+}
+
+input[type="file"] {
+    background-color: transparent;
+    color: #fff;
+    padding: 5% 5% 5% 5%;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    border-style: dotted;
+    border-color: #707070;
+}
 
 input[type="file"]:hover {
     border-color: #484c58;
 }
 
-/*4444444444444444444\6447644- Style the file input on focus (keyboard navigation) */
+/* Style the file input on focus (keyboard navigation) */
 input[type="file"]:focus {
-    outline: none; /* Remove default focus outline */
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Add a box shadow on focus */
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+/* Style for the button container */
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; /* Adjust the margin as needed */
+}
+
+/* Style for the button */
+/* Style for the button container */
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Adjust the height as needed */
+}
+
+/* Style for the button */
+button {
+    font-family: Arial;
+    color: #ffffff !important;
+    font-size: 1.6vw; /* Responsive font size */
+    
+    
+    padding: 1.5vh 4vw; 
+    border-radius: 2vw; 
+    border: 0.3vw ; 
+    background: #63a2dc;
+    margin-top: 2%;
+    margin-left: 17.5%;
+    width: 20%; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+button:hover {
+    color: #ffffff !important;
+    background: #0065c4;
+    /* background: linear-gradient(to top, #468CCF, #63B8EE); */
+    
+}
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
 }
 
 
@@ -96,7 +147,7 @@ input[type="file"]:focus {
 </head>
 <body>
     <header>
-        <h1 style="vertical-align:middle;"><img src="static/LOGO1.png" height="40">Converter</h1>
+        <h1><img src="static/LOGO1.png" height="40">Converter</h1>
     </header>
    
 </body>

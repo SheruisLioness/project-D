@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PDF Compression</title>
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <h1>PDF Compression</h1>
+    <form action="/pdfcompress" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".pdf" required><br>
+        <button type="submit">Compress</button>
+    </form>
+</body>
+</html>

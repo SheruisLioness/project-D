@@ -8,8 +8,8 @@
     {% include 'navbar.html' %}
     <h1>DOCX to PDF Conversion</h1>
     <form method="POST" enctype="multipart/form-data">
-        <input type="file" name="file" accept=".docx" required>
-        <button type="submit">Convert to PDF</button>
+        <input type="file" name="file" accept=".docx" required><br>
+        <button type="submit">Convert</button>
     </form>
     {% with messages = get_flashed_messages() %}
         {% if messages %}
