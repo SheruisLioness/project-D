@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Compression</title>
+    <style>
+        body {
+            background-color: #370546;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        h1 {
+            text-align: center;
+            color: #dbd4d4;
+        }
+
+        .container {
+            background-color: #eaf1f0;
+            border: 1px solid #0a0a0a;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin: 0 auto;
+            padding: 20px;
+            width: 300px;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .custom-upload {
+            background-color: #b477ac;
+            border: none;
+            border-radius: 5px;
+            color: #b61b9c;
+            cursor: pointer;
+            font-weight: bold;
+            padding: 10px 20px;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .custom-upload:hover {
+            background-color: #e0dfe6;
+        }
+    </style>
+</head>
+<body>
+    <h1>Image Compressor</h1>
+    <div class="container">
+        <form method="post" enctype="multipart/form-data">
+            <label for="image" class="custom-upload">Choose Image</label>
+            <input type="file" name="image" id="image">
+            <br>
+            <input type="submit" value="Upload and Compress" class="custom-upload">
+        </form>
+    </div>
+</body>
+</html>
