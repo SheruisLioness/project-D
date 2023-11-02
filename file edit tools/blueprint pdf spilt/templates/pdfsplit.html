@@ -20,16 +20,5 @@
         <input type="submit" value="Split PDF">
     </form>
     
-    {% if splitted_files %}
-        <h2>Splitted PDF Files:</h2>
-        <ul>
-            {% for file in splitted_files %}
-            <li><a href="{{ url_for('pdfsplit.split_pdf') }}">Split PDFs</a></li>
-
-            {% endfor %}
-        </ul>
-    {% endif %}
-    
-    <p><a href="{{ url_for('index') }}">Back to Home</a></p>
 </body>
 </html>
