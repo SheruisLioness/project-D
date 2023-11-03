@@ -8,7 +8,43 @@
     <h1>PDF Compression</h1>
     <form action="/pdfcompress" method="POST" enctype="multipart/form-data">
         <input type="file" name="file" accept=".pdf" required><br>
-        <button type="submit">Compress</button>
-    </form>
-</body>
-</html>
+        <input type="radio" id="download" name="action" value="download" checked>
+        <label for="download">Download</label>
+        
+        <input type="radio" id="send" name="action" value="send">
+        <label for="send">Send via Email</label>
+        <br>
+    
+        <div id="emailSection" style="display: none;">
+          <label for="email">Recipient Email:</label>
+          <input type="email" name="email" id="email">
+          <br>
+        </div>
+    
+        <button type="submit">Convert</button>
+      </form>
+      
+      {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class="messages" >
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+    
+      <script>
+           
+        
+        document.getElementById('send').addEventListener('click', function() {
+          document.getElementById('emailSection').style.display = 'block';
+        });
+    
+        document.getElementById('download').addEventListener('click', function() {
+          document.getElementById('emailSection').style.display = 'none';
+        });
+      </script>
+    </body>
+    </html>
+    

@@ -1,8 +1,10 @@
-from flask import Blueprint, render_template, request, flash, send_file
+from flask import Blueprint, redirect, render_template, request, flash, send_file, url_for
 from werkzeug.utils import secure_filename
 from pdf2docx import Converter
 import os
 import threading
+
+from email_utils import send_email
 
 pdftodocx_blueprint = Blueprint('pdftodocx', __name__)
 
@@ -32,6 +34,7 @@ def pdftodocx_index():
             if file and allowed_file(file.filename):
                 try:
                     filename = secure_filename(file.filename)
+                    action = request.form.get('action')
                     pdf_path = os.path.join(pdftodocx_blueprint.config['UPLOAD_FOLDER'], filename)
                     docx_filename = filename.rsplit('.', 1)[0] + '.docx'
                     docx_path = os.path.join(pdftodocx_blueprint.config['UPLOAD_FOLDER'], docx_filename)
@@ -42,8 +45,15 @@ def pdftodocx_index():
                     thread = threading.Thread(target=convert_and_download, args=(pdf_path, docx_path))
                     thread.start()
                     threads.append((thread, docx_path))  # Store thread and DOCX path
-                    
-                    # flash(f'{filename} conversion started!', 'success')
+                    if action == 'send':
+                        recipient_email = request.form.get('email')
+                        smtp_username = 'dconvertz@gmail.com'  # Replace with your Gmail email address
+                        smtp_password = 'aicwueerhuresupz'  # The 16-digit app password you generated
+                        send_email(docx_path, recipient_email, smtp_username, smtp_password)
+                        return redirect(url_for('pdftodocx.pdftodocx_index'))
+                    elif action == 'download':
+                        return send_file(docx_path, as_attachment=True)
+                            # flash(f'{filename} conversion started!', 'success')
                 except Exception as e:
                     flash(f'An error occurred while processing {filename}: {e}', 'danger')
         

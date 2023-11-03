@@ -1,6 +1,8 @@
 import subprocess
 import os
-from flask import Blueprint, render_template, request, send_file
+from flask import Blueprint, redirect, render_template, request, send_file, url_for
+
+from email_utils import send_email
 
 pdf_compressor_bp = Blueprint('pdf_compressor_bp', __name__)
 
@@ -21,9 +23,18 @@ def home():
 
             output_path = os.path.join(COMPRESSED_FOLDER, 'compressed_' + uploaded_file.filename)
             compress_pdf(input_path, output_path)
-
+            action = request.form.get('action')
             compressed_filename = 'compressed_' + uploaded_file.filename
-            return send_file(output_path, as_attachment=True, download_name=compressed_filename)
+            
+           # return send_file(output_path, as_attachment=True, download_name=compressed_filename)
+            if action == 'send':
+                recipient_email = request.form.get('email')
+                smtp_username = 'dconvertz@gmail.com'  # Replace with your Gmail email address
+                smtp_password = 'aicwueerhuresupz'  # The 16-digit app password you generated
+                send_email(output_path, recipient_email, smtp_username, smtp_password)
+                return redirect(url_for('doctoimg.doctoimg_index'))
+            elif action == 'download':
+                return send_file(output_path, as_attachment=True)
 
     return render_template('pdf.html')
 

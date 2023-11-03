@@ -1,9 +1,11 @@
 import os
-from flask import Blueprint, render_template, request, send_file, flash
+from flask import Blueprint, redirect, render_template, request, send_file, flash, url_for
 from PIL import Image
 from reportlab.lib.pagesizes import portrait
 from reportlab.pdfgen import canvas
 from reportlab.lib.utils import ImageReader
+
+from email_utils import send_email
 
 imgtopdf_bp = Blueprint('imgtopdf', __name__)
 
@@ -41,7 +43,7 @@ def convert():
         return render_template('imgtopdf.html')
 
     uploaded_files = request.files.getlist('file')
-
+    action = request.form.get('action')
     if not uploaded_files:
         flash('No selected files', 'error')
         return render_template('imgtopdf.html')
@@ -61,12 +63,17 @@ def convert():
     if images:
         pdf_filename = 'output.pdf'
         images_to_pdf(images, pdf_filename)
-        return send_file(
-            pdf_filename,
-            as_attachment=True,
-            download_name='output.pdf',
-            mimetype='application/pdf'
-        )
+        if action == 'send':
+                recipient_email = request.form.get('email')
+                smtp_username = 'dconvertz@gmail.com'  # Replace with your Gmail email address
+                smtp_password = 'aicwueerhuresupz'  # The 16-digit app password you generated
+                send_email(pdf_filename, recipient_email, smtp_username, smtp_password)
+                return redirect(url_for('imgtopdf.convert'))
+        elif action == 'download':
+                if os.path.exists(pdf_filename):
+                    return send_file(pdf_filename, as_attachment=True)
+                else:
+                    flash(f'File {pdf_filename} not found', 'danger')
     else:
         flash('No valid images uploaded', 'error')
         return render_template('imgtopdf.html')

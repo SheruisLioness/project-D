@@ -12,17 +12,43 @@
         
         <label for="file">Select one or more image files (PNG, JPG, JPEG, GIF):</label><br>
         <input type="file" id="file" name="file" accept=".png, .jpg, .jpeg, .gif" multiple><br>
-        <input type="submit" value="Convert">
-    </form>
+        
+    <input type="radio" id="download" name="action" value="download" checked>
+    <label for="download">Download</label>
     
-    {% with messages = get_flashed_messages() %}
+    <input type="radio" id="send" name="action" value="send">
+    <label for="send">Send via Email</label>
+    <br>
+
+    <div id="emailSection" style="display: none;">
+      <label for="email">Recipient Email:</label>
+      <input type="email" name="email" id="email">
+      <br>
+    </div>
+
+    <button type="submit">Convert</button>
+  </form>
+  
+  {% with messages = get_flashed_messages() %}
         {% if messages %}
-            <ul>
+            <ul class="messages" >
                 {% for message in messages %}
-                    <li style="color: red;">{{ message }}</li>
+                    <li>{{ message }}</li>
                 {% endfor %}
             </ul>
         {% endif %}
     {% endwith %}
+
+  <script>
+       
+    
+    document.getElementById('send').addEventListener('click', function() {
+      document.getElementById('emailSection').style.display = 'block';
+    });
+
+    document.getElementById('download').addEventListener('click', function() {
+      document.getElementById('emailSection').style.display = 'none';
+    });
+  </script>
 </body>
 </html>

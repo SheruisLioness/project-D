@@ -72,7 +72,7 @@ def convert():
         file.save(odt_path)
         convert_odt_to_docx(odt_path, docx_path)
 
-        if request.form.get('send_email'):  # If the checkbox is selected, send the email
+        if request.form.get('send_email'):  # If the checkbox is selected, send the email 
             recipient_email = request.form['email']
             email_subject = request.form['subject']  # Get custom email subject from the form
             # email_body = 'Please find the attached DOCX file.'

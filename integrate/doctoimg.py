@@ -1,11 +1,12 @@
 import pythoncom
-from flask import Blueprint, render_template, request, send_file
+from flask import Blueprint, redirect, render_template, request, send_file, url_for, flash
 import os
 import zipfile
 import tempfile
 from docx2pdf import convert
-from PyPDF2 import PdfReader
 from pdf2image import convert_from_path
+
+from email_utils import send_email
 
 doctoimg_blueprint = Blueprint('doctoimg', __name__)
 
@@ -15,13 +16,14 @@ UPLOAD_FOLDER = 'uploads'
 def doctoimg_index():
     pythoncom.CoInitialize()  # Initialize the COM library
     if request.method == 'POST':
+        action = request.form.get('action')
         if 'docx_file' not in request.files:
             return render_template('doctoimg.html', error='No file part')
 
         docx_file = request.files['docx_file']
-
-        if docx_file.filename == '':
-            return render_template('doctoimg.html', error='No selected file')
+        if not docx_file.filename.endswith('.docx'):
+            flash('Please select a .docx file.')
+            return redirect(request.url)
 
         if docx_file:
             temp_dir = tempfile.mkdtemp()
@@ -50,6 +52,13 @@ def doctoimg_index():
             os.remove(docx_path)
             os.rmdir(temp_dir)
 
-            return send_file(zip_file_path, as_attachment=True)
+            if action == 'send':
+                recipient_email = request.form.get('email')
+                smtp_username = 'dconvertz@gmail.com'  # Replace with your Gmail email address
+                smtp_password = 'aicwueerhuresupz'  # The 16-digit app password you generated
+                send_email(zip_file_path, recipient_email, smtp_username, smtp_password)
+                return redirect(url_for('doctoimg.doctoimg_index'))
+            elif action == 'download':
+                return send_file(zip_file_path, as_attachment=True)
 
     return render_template('doctoimg.html', error=None)

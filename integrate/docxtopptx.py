@@ -1,11 +1,13 @@
 import pythoncom
-from flask import Flask, Blueprint, render_template, request, send_file
+from flask import Flask, Blueprint, redirect, render_template, request, send_file, url_for
 import os
 from docx2pdf import convert as docx_to_pdf
 from pdf2image import convert_from_path
 from pptx import Presentation
 from pptx.util import Inches
 import datetime
+
+from email_utils import send_email
 
 app = Flask(__name__)
 UPLOAD_FOLDER = 'uploads'
@@ -89,14 +91,25 @@ def docxtopptx_index():
                 os.remove(image_path)
             os.remove(pdf_path)
 
-            return render_template('download_pptx.html', pptx_filename=pptx_filename)
+            return redirect(url_for('docxtopptx.download_pptx', pptx_filename=pptx_filename, _external=True, _scheme='http'))
 
     return render_template('docxtopptx.html', error=None)
 
-@docxtopptx_blueprint.route('/download_pptx/<pptx_filename>')
+@docxtopptx_blueprint.route('/download_pptx/<pptx_filename>', methods=['GET','POST'])
 def download_pptx(pptx_filename):
+    action = request.form.get('action')
     pptx_path = os.path.join(UPLOAD_FOLDER, pptx_filename)
-    return send_file(pptx_path, as_attachment=True)
+
+    if action == 'send':
+        recipient_email = request.form.get('email')
+        smtp_username = 'your_email@gmail.com'  # Replace with your Gmail email address
+        smtp_password = 'your_app_password'  # Replace with your app password
+        send_email(pptx_path, recipient_email, smtp_username, smtp_password)
+        return redirect(url_for('docxtopptx.docxtopptx_index'))
+    elif action == 'download':
+        return send_file(pptx_path, as_attachment=True, attachment_filename=pptx_filename)
+    else:
+        return "Invalid action"
 
 app.register_blueprint(docxtopptx_blueprint)
 

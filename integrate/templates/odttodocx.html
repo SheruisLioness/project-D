@@ -9,12 +9,26 @@
   <h1>ODT to DOCX Converter</h1>
   <form action="/odttodocxconvert" method="post" enctype="multipart/form-data">
     <input type="file" name="file" accept=".ODT"><br><br>
-    <input type="email" name="email" placeholder="Recipient Email" required><br><br>
-    <input type="text" name="subject" placeholder="Email Subject" required><br><br>
-    <h3>
-        Check the checkbox to send the mail</h3>
-    <input type="checkbox" name="send_email"> Send email<br><br>
-    <input type="submit" value="Download or Send">
+    <div id="email-fields" style="display: none;">
+        <input type="email" name="email" placeholder="Recipient Email" required><br><br>
+        <input type="text" name="subject" placeholder="Email Subject" required><br><br>
+    </div>
+    <h3>Check the checkbox to send the mail</h3>
+    <input type="checkbox" name="send_email" id="sendEmailCheckbox"> Send mail<br><br>
+    <input type="submit" value="convert">
   </form>
+
+  <script>
+    const sendEmailCheckbox = document.getElementById('sendEmailCheckbox');
+    const emailFields = document.getElementById('email-fields');
+
+    sendEmailCheckbox.addEventListener('change', function() {
+      if (sendEmailCheckbox.checked) {
+        emailFields.style.display = 'block';
+      } else {
+        emailFields.style.display = 'none';
+      }
+    });
+  </script>
 </body>
 </html>
