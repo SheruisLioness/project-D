@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PDF Encryption</title>
+    </head>
+<body>
+    {% include 'navbar.html' %} 
+    <h1>PDF Encryption</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <label for="file">Choose a PDF file to encrypt:</label>
+        {{ form.file() }}
+        <br>
+        <label for="password"> password:</label>
+        {{ form.password() }}
+        <br>
+        <button type="submit">Encrypt</button>
+    </form>
+    
+    {% if encrypted_filename %}
+        <h2>Download Encrypted PDF</h2>
+        <a href="{{ url_for('download_encrypted', filename=encrypted_filename) }}">Download Encrypted PDF</a>
+    {% endif %}
+</body>
+</html>

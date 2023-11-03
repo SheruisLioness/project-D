@@ -40,7 +40,7 @@ def upload_file():
 
             return send_from_directory(app.config['UPLOAD_FOLDER'], f'{timestamp}.pdf', as_attachment=True)
 
-    return render_template('index.html')
+    return render_template('removepage.html')
 
 if __name__ == '__main__':
     os.makedirs(UPLOAD_FOLDER, exist_ok=True)

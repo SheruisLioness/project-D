@@ -15,7 +15,7 @@ class EncryptForm(FlaskForm):
     file = FileField("File")
     password = PasswordField("Password")
 
-@encrypt_bp.route("/", methods=["GET", "POST"])
+@encrypt_bp.route("/pdfencrypt", methods=["GET", "POST"])
 def encrypt():
     form = EncryptForm()
     encrypted_filename = None
