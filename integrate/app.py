@@ -15,6 +15,8 @@ from odttodocx import odttodocx_bp
 from PdfCompress import pdf_compressor_bp
 from imgcompress import image_compressor_bp
 from pdfenc import encrypt_bp 
+from zip import file_upload_bp
+from htmltopdf_blueprint import htmltopdf_bp
 app = Flask(__name__)
 
 app.register_blueprint(pdftodocx_blueprint)
@@ -33,6 +35,8 @@ app.register_blueprint(odttodocx_bp)
 app.register_blueprint(pdf_compressor_bp)
 app.register_blueprint(image_compressor_bp)
 app.register_blueprint(encrypt_bp)
+app.register_blueprint(file_upload_bp)
+app.register_blueprint(htmltopdf_bp)
 app.secret_key = '2208'
 
 @app.route('/')

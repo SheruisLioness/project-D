@@ -1,35 +1,12 @@
-from flask import Flask, render_template, request, send_file
+from flask import Flask
+from zip import file_upload_bp
 import os
-import zipfile
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = 'uploads'
-app.config['DOWNLOAD_FOLDER'] = 'downloads'
+app.secret_key = '2222'  # Set a secret key for the session
 
-if not os.path.exists(app.config['UPLOAD_FOLDER']):
-    os.makedirs(app.config['UPLOAD_FOLDER'])
-
-if not os.path.exists(app.config['DOWNLOAD_FOLDER']):
-    os.makedirs(app.config['DOWNLOAD_FOLDER'])
-
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-@app.route('/upload', methods=['POST'])
-def upload():
-    uploaded_files = request.files.getlist('files')
-    zip_filename = os.path.join(app.config['DOWNLOAD_FOLDER'], 'result.zip')
-
-    with zipfile.ZipFile(zip_filename, 'w', zipfile.ZIP_DEFLATED) as zipf:
-        for file in uploaded_files:
-            if file:
-                file_path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
-                file.save(file_path)
-                zipf.write(file_path, os.path.basename(file_path))
-                os.remove(file_path)
-
-    return send_file(zip_filename, as_attachment=True)
+# Register the blueprint
+app.register_blueprint(file_upload_bp)
 
 if __name__ == '__main__':
     app.run(debug=True)
