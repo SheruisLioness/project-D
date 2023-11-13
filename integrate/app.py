@@ -17,6 +17,7 @@ from imgcompress import image_compressor_bp
 from pdfenc import encrypt_bp 
 from zip import file_upload_bp
 from htmltopdf_blueprint import htmltopdf_bp
+from pdfmerge_bp import pdf_merge_bp
 from aboutus import abtusbp
 app = Flask(__name__)
 
@@ -39,6 +40,7 @@ app.register_blueprint(image_compressor_bp)
 app.register_blueprint(encrypt_bp)
 app.register_blueprint(file_upload_bp)
 app.register_blueprint(htmltopdf_bp)
+app.register_blueprint(pdf_merge_bp)
 app.secret_key = '2208'
 
 @app.route('/')

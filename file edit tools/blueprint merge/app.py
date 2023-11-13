@@ -9,7 +9,7 @@ app.register_blueprint(pdf_merge_bp, url_prefix='/pdfmerge')
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return render_template("pdfmerge.html")
 
 if __name__ == "__main__":
     app.run(debug=True)

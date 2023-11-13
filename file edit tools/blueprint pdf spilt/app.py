@@ -1,5 +1,3 @@
-# app.py
-
 import os
 from flask import Flask, render_template
 from pdfsplit_bp import pdfsplit_bp  # Import the pdfsplit_bp blueprint
@@ -19,4 +17,4 @@ def index():
     return render_template('pdfsplit.html')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True,port='4444')

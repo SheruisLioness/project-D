@@ -1,11 +1,15 @@
 import os
 import fitz  # PyMuPDF
-from flask import Flask, request, render_template, send_from_directory
+from flask import Flask, Blueprint, render_template, send_from_directory, request
 from datetime import datetime
 
+# Create a Flask application
 app = Flask(__name__)
 UPLOAD_FOLDER = 'uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+# Create a Blueprint named 'pdf_extraction'
+pdf_extraction_bp = Blueprint('pdf_extraction', __name__)
 
 def extract_pages(input_pdf_path, output_pdf_path, pages_to_extract):
     pdf_document = fitz.open(input_pdf_path)
@@ -14,7 +18,7 @@ def extract_pages(input_pdf_path, output_pdf_path, pages_to_extract):
     pdf_document.save(output_pdf_path)
     pdf_document.close()
 
-@app.route('/', methods=['GET', 'POST'])
+@pdf_extraction_bp.route('/', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
         if 'file' not in request.files:
@@ -41,7 +45,3 @@ def upload_file():
             return send_from_directory(app.config['UPLOAD_FOLDER'], f'output_{timestamp}.pdf', as_attachment=True)
 
     return render_template('index.html')
-
-if __name__ == '__main__':
-    os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-    app.run(debug=True)

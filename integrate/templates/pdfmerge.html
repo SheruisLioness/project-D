@@ -4,10 +4,12 @@
     <title>Merged PDF</title>
 </head>
 <body>
+    {% include 'navbar.html' %}
     <form action="/pdfmerge/merge" method="POST" enctype="multipart/form-data">
         <input type="file" name="pdfs" multiple="multiple" accept=".pdf" />
         <br />
-        <input type="submit" value="Merge PDFs" />
+        <button type="submit" value="Merge PDFs" >merge</button>
+
     </form>
     
 </body>
