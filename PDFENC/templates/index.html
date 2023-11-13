@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <a href="{{ url_for('encryption.encrypt') }}">PDF encryption</a><br>
+    <a href="{{ url_for('pdfsplit.upload_file') }}" method="get">PDF SPLIT</a><br>
+    <a href="{{ url_for('pdfmerge.merge_pdfs') }}"method="get">PDF MERGE</a><br>
+</body>
+</html>

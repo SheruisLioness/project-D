@@ -7,7 +7,7 @@ def send_email(pdf_filepath, recipient_email, smtp_username, smtp_password):
         msg = EmailMessage()
         msg.set_content('Please find the converted PDF file attached.')
         msg['Subject'] = 'Converted PDF File'
-        msg['From'] = 'dconvertz@gmail.com'  # Replace with your Gmail email address
+        msg['From'] = 'dconvertz@gmail.com'  
         msg['To'] = recipient_email
 
         with open(pdf_filepath, 'rb') as file:
@@ -18,10 +18,10 @@ def send_email(pdf_filepath, recipient_email, smtp_username, smtp_password):
         smtp_server = 'smtp.gmail.com'
         smtp_port = 587
 
-        # Establish a secure session with Gmail's outgoing SMTP server using your Gmail account
+        # Establishing a secure session with Gmail's outgoing SMTP server using your Gmail account
         server = smtplib.SMTP(smtp_server, smtp_port)
         server.starttls()  # Enable TLS encryption
-        server.login(smtp_username, smtp_password)  # Login to Gmail using the app password
+        server.login(smtp_username, smtp_password)  
 
         # Send email
         server.send_message(msg)

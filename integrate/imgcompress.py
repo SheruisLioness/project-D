@@ -6,7 +6,7 @@ from email_utils import send_email
 
 image_compressor_bp = Blueprint('image_compressor_bp', __name__)
 
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif','webp'}
 
 # Define a function to check for allowed file extensions
 def allowed_file(filename):

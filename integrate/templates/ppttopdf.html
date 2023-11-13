@@ -10,22 +10,44 @@
     <form method="POST" action="/ppttopdf" enctype="multipart/form-data">
         <label for="pptx_file">Select a PPTX file:</label><br>
         <input type="file" name="pptx_file" id="pptx_file" accept=".pptx" required><br>
-        <!-- <input type="submit" value="Convert"> -->
+          
+        <input type="radio" id="download" name="action" value="download" checked>
+        <label for="download">Download</label>
+        
+        <input type="radio" id="send" name="action" value="send">
+        <label for="send">Send via Email</label>
+        <br>
+    
+        <div id="emailSection" style="display: none;">
+          <label for="email">Recipient Email:</label>
+          <input type="email" name="email" id="email">
+          <br>
+        </div>
+    
         <button type="submit">Convert</button>
-    </form>
+      </form>
+      
+      {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class="messages" >
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
     
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            <ul>
-                {% for category, message in messages %}
-                    <li class="{{ category }}">{{ message }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    {% endwith %}
+      <script>
+           
+        
+        document.getElementById('send').addEventListener('click', function() {
+          document.getElementById('emailSection').style.display = 'block';
+        });
     
-    {% if url_for('ppttopdf.ppttopdfindex') %}
-        <!-- <a href="{{ url_for('ppttopdf.ppttopdfindex') }}" download>Download Converted PDF</a> -->
-    {% endif %}
-</body>
-</html>
+        document.getElementById('download').addEventListener('click', function() {
+          document.getElementById('emailSection').style.display = 'none';
+        });
+      </script>
+    </body>
+    </html>
+    

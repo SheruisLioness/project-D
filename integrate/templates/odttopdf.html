@@ -28,7 +28,15 @@
 
     <button type="submit">Convert</button>
   </form>
-
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+      <ul class="messages" >
+          {% for message in messages %}
+              <li>{{ message }}</li>
+          {% endfor %}
+      </ul>
+  {% endif %}
+{% endwith %}
   <script>
     document.getElementById('send').addEventListener('click', function() {
       document.getElementById('emailSection').style.display = 'block';

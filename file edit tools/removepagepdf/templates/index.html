@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PDF Page Remover</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+            background-color: #008b8b ; /* Set the background color for the entire page */
+        }
+
+        .container {
+            width: 50%;
+            margin: 0 auto;
+            background-color: #afeeee; /* Set the background color for the form container */
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .form-group {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>PDF Page Remover</h1>
+        <form method="POST" action="/" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="file">Select a PDF file:</label>
+                <input type="file" name="file" accept=".pdf" required>
+            </div>
+            <div class="form-group">
+                <label for="pages_to_remove">Pages to Remove (Comma-separated, e.g., 2, 4, 6):</label>
+                <input type="text" name="pages_to_remove" required>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Remove Pages">
+            </div>
+        </form>
+    </div>
+</body>
+</html>

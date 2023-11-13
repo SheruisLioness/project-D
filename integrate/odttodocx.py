@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, send_file
+from flask import Blueprint, flash, redirect, render_template, request, send_file, url_for
 import os
 from odf import text, teletype
 from odf.opendocument import load
@@ -72,15 +72,14 @@ def convert():
         file.save(odt_path)
         convert_odt_to_docx(odt_path, docx_path)
 
-        if request.form.get('send_email'):  # If the checkbox is selected, send the email 
+        if request.form.get('send_email'):  
             recipient_email = request.form['email']
-            email_subject = request.form['subject']  # Get custom email subject from the form
-            # email_body = 'Please find the attached DOCX file.'
-            if send_email('dconvertz@gmail.com', recipient_email, email_subject, docx_path):
-                return 'Email sent successfully'
-            else:
-                return 'Failed to send email'
-        else:  # If the checkbox is not selected, offer the file for download
+            email_subject = request.form['subject']  
+            smtp_username = 'dconvertz@gmail.com' 
+            smtp_password = 'aicwueerhuresupz'
+            send_email(send_email,recipient_email," "," ",docx_path)
+            return redirect(url_for('odttodocx.index'))
+        else:  
             return send_file(docx_path, as_attachment=True, download_name='output.docx')
     else:
         return 'Invalid file format. Allowed format is .odt'

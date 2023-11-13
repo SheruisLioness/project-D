@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Word Document Merger</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+            background-color: #008b8b ; /* Set the background color for the entire page */
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            width: 50%;
+            margin: 0 auto;
+            background-color: #afeeee; /* Set the background color for the form container */
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin: 10px 0;
+        }
+
+        input[type="file"] {
+            display: block;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Word Document Merger</h1>
+    <form action="/merge" method="POST" enctype="multipart/form-data">
+        <label for="file1">Select Word Document 1:</label>
+        <input type="file" name="file1" id="file1" accept=".docx" required><br>
+        
+        <label for="file2">Select Word Document 2:</label>
+        <input type="file" name="file2" id="file2" accept=".docx" required><br>
+        
+        <input type="submit" value="Merge Documents">
+    </form>
+</body>
+</html>

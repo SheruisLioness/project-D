@@ -1,6 +1,8 @@
-from flask import Blueprint, Flask, render_template, request, send_file
+from flask import Blueprint, Flask, redirect, render_template, request, send_file, url_for
 import os
 import zipfile
+
+from email_utils import send_email
 
 file_upload_bp = Blueprint('file_upload_bp', __name__)
 
@@ -20,7 +22,7 @@ def index():
 def upload():
     uploaded_files = request.files.getlist('files')
     zip_filename = os.path.join(file_upload_bp.config['DOWNLOAD_FOLDER'], 'result.zip')
-
+    action = request.form.get('action')
     with zipfile.ZipFile(zip_filename, 'w', zipfile.ZIP_DEFLATED) as zipf:
         for file in uploaded_files:
             if file:
@@ -29,9 +31,13 @@ def upload():
                 zipf.write(file_path, os.path.basename(file_path))
                 os.remove(file_path)
 
-    return send_file(zip_filename, as_attachment=True)
+    if action == 'send':
+                recipient_email = request.form.get('email')
+                smtp_username = 'dconvertz@gmail.com'  
+                smtp_password = 'aicwueerhuresupz'  
+                send_email(zip_filename, recipient_email, smtp_username, smtp_password)
+                return redirect(url_for('file_upload_bp.index'))
+    elif action == 'download':
+                return send_file(zip_filename, as_attachment=True)
 
-if __name__ == '__main__':
-    app = Flask(__name__)
-    app.register_blueprint(file_upload_bp)
-    app.run(debug=True)
+

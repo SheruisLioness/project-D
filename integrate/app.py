@@ -17,8 +17,10 @@ from imgcompress import image_compressor_bp
 from pdfenc import encrypt_bp 
 from zip import file_upload_bp
 from htmltopdf_blueprint import htmltopdf_bp
+from aboutus import abtusbp
 app = Flask(__name__)
 
+app.register_blueprint(abtusbp)
 app.register_blueprint(pdftodocx_blueprint)
 app.register_blueprint(doctopdf_blueprint)
 app.register_blueprint(doctoimg_blueprint)

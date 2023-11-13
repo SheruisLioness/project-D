@@ -1,8 +1,10 @@
 import os
-from flask import Blueprint, render_template, request, send_file, current_app
+from flask import Blueprint, redirect, render_template, request, send_file, current_app, url_for, flash
 from openpyxl import load_workbook
 from docx import Document
 from io import BytesIO
+
+from email_utils import send_email
 
 exceltodocx_bp = Blueprint('exceltodocx', __name__)
 
@@ -17,6 +19,10 @@ def index():
         if excel_file.filename == '':
             return render_template('xceltodocx.html', error='No selected file')
 
+        if excel_file.filename.split('.')[-1] not in ['xls', 'xlsx']:
+            flash('Only XLS and XLSX formats are supported', 'danger')
+            return render_template('xceltodocx.html')
+
         if excel_file:
             upload_folder = os.path.join(current_app.root_path, 'uploads')
             if not os.path.exists(upload_folder):
@@ -28,8 +34,16 @@ def index():
             docx_filename = 'output.docx'
             docx_path = os.path.join(upload_folder, docx_filename)
             convert_to_docx(excel_path, docx_path)
+            action = request.form.get('action')
             
-            return send_file(docx_path, as_attachment=True)
+            if action == 'send':
+                recipient_email = request.form.get('email')
+                smtp_username = 'dconvertz@gmail.com'  
+                smtp_password = 'aicwueerhuresupz'  
+                send_email(docx_path, recipient_email, smtp_username, smtp_password)
+                return redirect(url_for('exceltodocx.index'))
+            elif action == 'download':
+                return send_file(docx_path, as_attachment=True)
     
     return render_template('xceltodocx.html', error=None)
 

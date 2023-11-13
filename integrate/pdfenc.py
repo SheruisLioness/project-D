@@ -1,9 +1,11 @@
-from flask import Flask, Blueprint, render_template, request, send_file
+from flask import Flask, Blueprint, redirect, render_template, request, send_file, url_for
 from flask_wtf import FlaskForm
 from wtforms import FileField, PasswordField
 import PyPDF2
 import os
 import datetime
+
+from email_utils import send_email
 
 app = Flask(__name__)
 app.secret_key = '2222' 
@@ -37,14 +39,20 @@ def encrypt():
         current_datetime = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         encrypted_filename = f"{current_datetime}.pdf"
         encrypted_path = os.path.join(encrypt_bp.config['UPLOAD_FOLDER'], encrypted_filename)
-        
+        action = request.form.get('action')
         with open(encrypted_path, "wb") as output_pdf:
             pdf_writer.write(output_pdf)
 
-        return send_file(encrypted_path, as_attachment=True, download_name=encrypted_filename)
+        if action == 'send':
+                recipient_email = request.form.get('email')
+                smtp_username = 'dconvertz@gmail.com'  # Replace with your Gmail email address
+                smtp_password = 'aicwueerhuresupz'  # The 16-digit app password you generated
+                send_email(output_pdf, recipient_email, smtp_username, smtp_password)
+                return redirect(url_for('encrypt_bp.encrypt'))
+        elif action == 'download':
+                return send_file(output_pdf, as_attachment=True)
 
     return render_template("pdfenc.html", form=form, encrypted_filename=encrypted_filename)
 
 if __name__ == "__main__":
-    app.register_blueprint(encrypt_bp)
-    app.run(host="localhost", port=4444)
+    app.run(debug=True)
