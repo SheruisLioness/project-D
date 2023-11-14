@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Splitter</title>
+</head>
+<body>
+    <h1>PDF Splitter</h1>
+    <form method="POST" action="/" enctype="multipart/form-data">
+        <label for="input_pdf">Select PDF file:</label>
+        <input type="file" name="input_pdf" accept=".pdf" required>
+        <br>
+        <label for="start_page">Start Page:</label>
+        <input type="number" name="start_page" required>
+        <br>
+        <label for="end_page">End Page:</label>
+        <input type="number" name="end_page" required>
+        <br>
+        <input type="radio" id="download" name="action" value="download" checked>
+        <label for="download">Download</label>
+        
+        <input type="radio" id="send" name="action" value="send">
+        <label for="send">Send via Email</label>
+        <br>
+    
+        <div id="emailSection" style="display: none;">
+          <label for="email">Recipient Email:</label>
+          <input type="email" name="email" id="email">
+          <br>
+        </div>
+    
+        <button type="submit">Convert</button>
+      </form>
+      
+      {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class="messages" >
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+    
+      <script>
+           
+        
+        document.getElementById('send').addEventListener('click', function() {
+          document.getElementById('emailSection').style.display = 'block';
+        });
+    
+        document.getElementById('download').addEventListener('click', function() {
+          document.getElementById('emailSection').style.display = 'none';
+        });
+      </script>
+    </body>
+    </html>
+    

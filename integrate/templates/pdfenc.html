@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>PDF Encryption</title>
-    </head>
+</head>
 <body>
     {% include 'navbar.html' %} 
     <h1>PDF Encryption</h1>
@@ -11,7 +11,7 @@
         <label for="file">Choose a PDF file to encrypt:</label>
         {{ form.file() }}
         <br>
-        <label for="password"> password:</label>
+        <label for="password">Password:</label>
         {{ form.password() }}
         <br>
         <input type="radio" id="download" name="action" value="download" checked>
@@ -22,34 +22,32 @@
         <br>
     
         <div id="emailSection" style="display: none;">
-          <label for="email">Recipient Email:</label>
-          <input type="email" name="email" id="email">
-          <br>
+            <label for="email">Recipient Email:</label>
+            <input type="email" name="email" id="email">
+            <br>
         </div>
     
-        <button type="submit">Convert</button>
-      </form>
+        <button type="submit">Encrypt</button>
+    </form>
     
-      {% with messages = get_flashed_messages() %}
-      {% if messages %}
-          <ul class="messages" >
-              {% for message in messages %}
-                  <li>{{ message }}</li>
-              {% endfor %}
-          </ul>
-      {% endif %}
-  {% endwith %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
 
     <script>
-       
-    
         document.getElementById('send').addEventListener('click', function() {
-          document.getElementById('emailSection').style.display = 'block';
+            document.getElementById('emailSection').style.display = 'block';
         });
-    
+
         document.getElementById('download').addEventListener('click', function() {
-          document.getElementById('emailSection').style.display = 'none';
+            document.getElementById('emailSection').style.display = 'none';
         });
-      </script>
+    </script>
 </body>
 </html>

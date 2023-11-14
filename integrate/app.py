@@ -19,6 +19,7 @@ from zip import file_upload_bp
 from htmltopdf_blueprint import htmltopdf_bp
 from pdfmerge_bp import pdf_merge_bp
 from aboutus import abtusbp
+from pdfsplit import pdfsplit_bp
 app = Flask(__name__)
 
 app.register_blueprint(abtusbp)
@@ -26,6 +27,7 @@ app.register_blueprint(pdftodocx_blueprint)
 app.register_blueprint(doctopdf_blueprint)
 app.register_blueprint(doctoimg_blueprint)
 app.register_blueprint(docxtopptx_blueprint)
+app.register_blueprint(pdfsplit_bp)
 app.register_blueprint(pdf2img_bp)
 app.register_blueprint(pdftoppt_bp) 
 app.register_blueprint(ppttopdf_bp)
