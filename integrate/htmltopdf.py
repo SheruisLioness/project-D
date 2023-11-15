@@ -1,4 +1,4 @@
-# from curses import flash
+
 from flask import Blueprint, flash, redirect, render_template, request, send_file, url_for
 import pdfkit
 import os

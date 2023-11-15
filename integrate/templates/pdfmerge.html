@@ -14,3 +14,35 @@
     
 </body>
 </html>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Merged PDF</title>
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <form action="/pdfmerge/merge" method="POST" enctype="multipart/form-data">
+        <input type="file" name="pdfs" multiple="multiple" accept=".pdf" />
+        <br />
+        <button type="submit" value="Merge PDFs" >merge</button>
+
+    </form>
+    
+</body>
+</html>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Merged PDF</title>
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <form action="/pdfmerge/merge" method="POST" enctype="multipart/form-data">
+        <input type="file" name="pdfs" multiple="multiple" accept=".pdf" />
+        <br />
+        <button type="submit" value="Merge PDFs" >merge</button>
+
+    </form>
+    
+</body>
+</html>

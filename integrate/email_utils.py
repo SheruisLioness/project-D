@@ -1,3 +1,4 @@
+#email_utils.py
 import smtplib
 from email.message import EmailMessage
 import os
@@ -14,13 +15,11 @@ def send_email(pdf_filepath, recipient_email, smtp_username, smtp_password):
             file_data = file.read()
             msg.add_attachment(file_data, maintype='application', subtype='octet-stream', filename=os.path.basename(pdf_filepath))
 
-        # SMTP server configuration for Gmail
         smtp_server = 'smtp.gmail.com'
         smtp_port = 587
 
-        # Establishing a secure session with Gmail's outgoing SMTP server using your Gmail account
         server = smtplib.SMTP(smtp_server, smtp_port)
-        server.starttls()  # Enable TLS encryption
+        server.starttls()  
         server.login(smtp_username, smtp_password)  
 
         # Send email

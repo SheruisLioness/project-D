@@ -1,3 +1,4 @@
+# app.py
 from flask import Flask, render_template
 from pdftodocx import pdftodocx_blueprint
 from doctopdf import doctopdf_blueprint
@@ -16,7 +17,7 @@ from PdfCompress import pdf_compressor_bp
 from imgcompress import image_compressor_bp
 from pdfenc import encrypt_bp 
 from zip import file_upload_bp
-from htmltopdf_blueprint import htmltopdf_bp
+from htmltopdf import htmltopdf_bp
 from pdfmerge_bp import pdf_merge_bp
 from aboutus import abtusbp
 from pdfsplit import pdfsplit_bp
